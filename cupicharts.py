@@ -69,7 +69,32 @@ def cargar_cupicharts(ruta_archivo: str) -> dict:
         2. Al usar open(), agregue la codificación "utf-8" de esta forma: open(archivo, "r", encoding="utf-8") para garantizar la lectura de caracteres especiales del archivo CSV.               
     """
     # TODO 1: Implemente la función tal y como se describe en la documentación.
-    pass
+    
+    archivo = open(ruta_archivo, 'r', encoding='utf-8')
+    
+    dicc = {}
+    
+    encabezado = archivo.readline().strip().split(',')
+    
+    linea = archivo.readline().strip()
+    
+    while linea != "":
+        cont = linea.split(",")
+        
+        diccio = {}
+        for i in range(len(encabezado)):
+            diccio[encabezado[i]] = cont[i]
+        
+        if diccio['genre'] in dicc:
+            dicc[diccio['genre']] = diccio
+        else:
+            dicc[diccio['genre']] = diccio
+            
+        linea = archivo.readline().strip()
+    
+    return dicc
+    
+    
 
 
 # Función 2:
