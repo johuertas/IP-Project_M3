@@ -85,10 +85,12 @@ def cargar_cupicharts(ruta_archivo: str) -> dict:
         for i in range(len(encabezado)):
             diccio[encabezado[i]] = cont[i]
         
-        if diccio['genre'] in dicc:
-            dicc[diccio['genre']] = diccio
+        if diccio['genre'] not in dicc:
+            dicc[diccio['genre']] = []
+            dicc[diccio['genre']].append(diccio)
+            
         else:
-            dicc[diccio['genre']] = diccio
+            dicc[diccio['genre']].append(diccio)
             
         linea = archivo.readline().strip()
     
