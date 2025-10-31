@@ -124,11 +124,11 @@ def buscar_canciones_por_artista_popularidad(cupicharts: dict, artista_buscado: 
     lista = []
     
     for genero in cupicharts:
-        i = 0
-        while i < len(genero):
-            if genero[i]["performer"] == artista_buscado and (genero[i]["popularity"] >= popularidad_min and genero[i]["popularity"] <= popularidad_max):
-                lista.append(genero[i])
-            i += 1
+        c = 0
+        while c < len(cupicharts[genero]):
+            if cupicharts[genero][c]["performer"] == artista_buscado and int(cupicharts[genero][c]["popularity"]) >= popularidad_min and int(cupicharts[genero][c]["popularity"]) <= popularidad_max:
+                lista.append(cupicharts[genero][c])
+            c += 1
                 
     return lista
     
@@ -154,7 +154,7 @@ def buscar_canciones_por_genero_anio_explicitud(cupicharts: dict, genero_buscado
               Si no hay coincidencias, se retorna una lista vacía.
     """
     # TODO 3: Implemente la función tal y como se describe en la documentación.
-    pass
+    
 
 
 # Función 4:
