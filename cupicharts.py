@@ -211,6 +211,15 @@ def obtener_apariciones_posicion(cupicharts: dict, posicion_buscada: int) -> int
     """
     # TODO 5: Implemente la función tal y como se describe en la documentación.
     
+    cuenta_p = 0
+    
+    for genero in cupicharts:
+        for c in cupicharts[genero]:
+            if c["peak_pos"] == posicion_buscada:
+                cuenta_p += 1
+                
+    return cuenta_p
+    
 
 
 # Función 6:

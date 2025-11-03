@@ -68,10 +68,24 @@ def buscar_cancion_mas_escuchada(cupicharts: dict) -> dict:
                 
     return mas_esc
     
-def prueba(cupicharts:dict):
-    print()
+def obtener_apariciones_posicion(cupicharts: dict, posicion_buscada: int) -> int:
+    
+    cuenta_p = 0
+    
+    for genero in cupicharts:
+        for c in cupicharts[genero]:
+            if int(c["peak_pos"]) == posicion_buscada:
+                cuenta_p += 1
+        
+    return cuenta_p
+
+#def prueba(cupicharts:dict):
+#   print()
+    
 #print(cargar_cupicharts(archi))
 #print(bus_popu(cargar_cupicharts(archi), "Kendrick Lamar", 94, 98))
 #print(prueba1(cargar_cupicharts(archi), "Kendrick Lamar", 15, 98))
 #print(buscar_canciones_por_genero_anio_explicitud(cargar_cupicharts(archi), "country", "2025-05-23", 'False'))
-print(prueba(cargar_cupicharts(archi)))
+print(buscar_cancion_mas_escuchada(cargar_cupicharts(archi)))
+#print(obtener_apariciones_posicion(cargar_cupicharts(archi), 1))
+#print(prueba(cargar_cupicharts(archi)))
