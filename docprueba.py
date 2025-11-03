@@ -53,21 +53,25 @@ def buscar_canciones_por_genero_anio_explicitud(cupicharts: dict, genero_buscado
             lista.append(i)
             
     return lista
-
-def prueba(cupicharts: dict, genero_buscado: str):
     
-    lista = []
+def buscar_cancion_mas_escuchada(cupicharts: dict) -> dict:    
+    if cupicharts == {}:
+        return {}
     
-    g_bus = cupicharts[genero_buscado]
-    for i in g_bus:
-        lista.append(i["explicit"])
-        
-    return lista
+    generos = list(cupicharts.keys())
+    mas_esc = cupicharts[generos[0]][0]
     
+    for genero in cupicharts:
+        for c in cupicharts[genero]:
+            if c["play_count"] > mas_esc["play_count"]:
+                mas_esc = c
+                
+    return mas_esc
     
-    
+def prueba(cupicharts:dict):
+    print()
 #print(cargar_cupicharts(archi))
 #print(bus_popu(cargar_cupicharts(archi), "Kendrick Lamar", 94, 98))
 #print(prueba1(cargar_cupicharts(archi), "Kendrick Lamar", 15, 98))
-print(buscar_canciones_por_genero_anio_explicitud(cargar_cupicharts(archi), "country", "2025-05-23", 'False'))
-#print(prueba(cargar_cupicharts(archi), "country"))
+#print(buscar_canciones_por_genero_anio_explicitud(cargar_cupicharts(archi), "country", "2025-05-23", 'False'))
+print(prueba(cargar_cupicharts(archi)))

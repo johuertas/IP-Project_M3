@@ -154,7 +154,16 @@ def buscar_canciones_por_genero_anio_explicitud(cupicharts: dict, genero_buscado
               Si no hay coincidencias, se retorna una lista vacía.
     """
     # TODO 3: Implemente la función tal y como se describe en la documentación.
+
     
+    lista = []
+    
+    g_bus = cupicharts[genero_buscado]
+    for i in g_bus:
+        if i["release_date"] == anio_lanzamiento_buscado and i["explicit"] == criterio_explicito_buscado:
+            lista.append(i)
+            
+    return lista
 
 
 # Función 4:
@@ -172,8 +181,20 @@ def buscar_cancion_mas_escuchada(cupicharts: dict) -> dict:
                 Si hay varias canciones con la misma cantidad de reproducciones, retorna la primera encontrada.
     """
     # TODO 4: Implemente la función tal y como se describe en la documentación.
-    pass
-
+       
+    if cupicharts == {}:
+        return {}
+    
+    generos = list(cupicharts.keys())
+    mas_esc = cupicharts[generos[0]][0]
+    
+    for genero in cupicharts:
+        for c in cupicharts[genero]:
+            if c["play_count"] > mas_esc["play_count"]:
+                mas_esc = c
+                
+    return mas_esc
+        
 
 # Función 5:
 def obtener_apariciones_posicion(cupicharts: dict, posicion_buscada: int) -> int:
@@ -189,7 +210,7 @@ def obtener_apariciones_posicion(cupicharts: dict, posicion_buscada: int) -> int
              Si no se encuentran canciones con dicha posición, retorna 0.
     """
     # TODO 5: Implemente la función tal y como se describe en la documentación.
-    pass
+    
 
 
 # Función 6:
