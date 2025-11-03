@@ -79,6 +79,43 @@ def obtener_apariciones_posicion(cupicharts: dict, posicion_buscada: int) -> int
         
     return cuenta_p
 
+
+def buscar_posicion_mas_frecuente(cupicharts: dict) -> dict:
+
+    if cupicharts == {}:
+        return {"posicion":0, 
+                "cantidad":0}
+    
+    max_pos = 1
+    p_can = 0
+    
+    for genero in cupicharts:
+        for c in cupicharts[genero]:
+            if int(c["peak_pos"]) == 1:
+                p_can += 1
+            if int(c["peak_pos"]) > max_pos:
+                max_pos = int(c["peak_pos"])
+    
+    dicci = {"posicion":1,
+             "cantidad":p_can}
+    pos = 1
+    
+    while pos <= max_pos:
+        temp = 0
+        for genero in cupicharts:
+            for c in cupicharts[genero]:
+                if int(c["peak_pos"]) == pos:
+                    temp += 1
+        if temp > dicci["cantidad"]:
+            dicci["posicion"] = pos
+            dicci["cantidad"] = temp
+        pos += 1
+            
+    return dicci
+            
+    
+
+
 #def prueba(cupicharts:dict):
 #   print()
     
@@ -86,6 +123,7 @@ def obtener_apariciones_posicion(cupicharts: dict, posicion_buscada: int) -> int
 #print(bus_popu(cargar_cupicharts(archi), "Kendrick Lamar", 94, 98))
 #print(prueba1(cargar_cupicharts(archi), "Kendrick Lamar", 15, 98))
 #print(buscar_canciones_por_genero_anio_explicitud(cargar_cupicharts(archi), "country", "2025-05-23", 'False'))
-print(buscar_cancion_mas_escuchada(cargar_cupicharts(archi)))
+#print(buscar_cancion_mas_escuchada(cargar_cupicharts(archi)))
 #print(obtener_apariciones_posicion(cargar_cupicharts(archi), 1))
+print(buscar_posicion_mas_frecuente(cargar_cupicharts(archi)))
 #print(prueba(cargar_cupicharts(archi)))

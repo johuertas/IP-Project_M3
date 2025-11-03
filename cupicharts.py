@@ -215,9 +215,9 @@ def obtener_apariciones_posicion(cupicharts: dict, posicion_buscada: int) -> int
     
     for genero in cupicharts:
         for c in cupicharts[genero]:
-            if c["peak_pos"] == posicion_buscada:
+            if int(c["peak_pos"]) == posicion_buscada:
                 cuenta_p += 1
-                
+        
     return cuenta_p
     
 
@@ -241,8 +241,19 @@ def buscar_posicion_mas_frecuente(cupicharts: dict) -> dict:
             {"posicion": 0, "cantidad": 0}
     """
     # TODO 6: Implemente la función tal y como se describe en la documentación.
-    pass
-
+    
+    if cupicharts == {}:
+        return {"posicion":0, 
+                "cantidad":0}
+    
+    max_pos = 0
+    
+    for genero in cupicharts:
+        for c in cupicharts[genero]:
+            if int(c["peak_pos"]) > max_pos:
+                max_pos = int(c["peak_pos"])
+                
+    return max_pos
 
 # Función 7:
 def crear_url_canciones(cupicharts: dict) -> None: 
