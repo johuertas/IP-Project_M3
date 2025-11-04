@@ -246,14 +246,32 @@ def buscar_posicion_mas_frecuente(cupicharts: dict) -> dict:
         return {"posicion":0, 
                 "cantidad":0}
     
-    max_pos = 0
+    max_pos = 1
+    p_can = 0
     
     for genero in cupicharts:
         for c in cupicharts[genero]:
+            if int(c["peak_pos"]) == 1:
+                p_can += 1
             if int(c["peak_pos"]) > max_pos:
                 max_pos = int(c["peak_pos"])
-                
-    return max_pos
+    
+    dicci = {"posicion":1,
+             "cantidad":p_can}
+    pos = 1
+    
+    while pos <= max_pos:
+        temp = 0
+        for genero in cupicharts:
+            for c in cupicharts[genero]:
+                if int(c["peak_pos"]) == pos:
+                    temp += 1
+        if temp > dicci["cantidad"]:
+            dicci["posicion"] = pos
+            dicci["cantidad"] = temp
+        pos += 1
+            
+    return dicci
 
 # Función 7:
 def crear_url_canciones(cupicharts: dict) -> None: 
@@ -288,7 +306,20 @@ def crear_url_canciones(cupicharts: dict) -> None:
         https://docs.python.org/es/3/library/stdtypes.html#str.isalnum
     """
     # TODO 7: Implemente la función tal y como se describe en la documentación.
-    pass
+    
+    for genero in cupicharts:
+        for c in cupicharts[genero]:
+            gen = genero.replace(" ", "")
+            can_art = c["title"] + "-" + c["performer"] 
+            if len(can_art) > 30:
+                can_art = can_art[:30]
+            f_chart = c["chart_week"].replace("-", "")
+            
+            link = "https://www.cupicharts.com/canciones/" + gen + "/" + can_art + "/" + f_chart
+            
+            c["url"] = link
+            
+    
     
 
 # Función 8:
