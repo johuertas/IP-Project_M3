@@ -186,5 +186,5 @@ def relacionar_album_con_canciones(cupicharts: dict) -> dict:
 #print(buscar_posicion_mas_frecuente(cargar_cupicharts(archi)))
 #print(crear_url_canciones(cargar_cupicharts(archi)))
 #print(recomendar_cancion(cargar_cupicharts(archi), "country", 100, 110.0, 225.0, "2020-01-01", "2025-09-11"))
-print(relacionar_album_con_canciones(cargar_cupicharts(archi)))
+#print(relacionar_album_con_canciones(cargar_cupicharts(archi)))
 #print(prueba(cargar_cupicharts(archi)))

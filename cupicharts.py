@@ -402,11 +402,11 @@ def relacionar_album_con_canciones(cupicharts: dict) -> dict:
     
     for genero in cupicharts:
         for c in cupicharts[genero]:
-            if c["album"] not in dicc:
-                dicc[c["album"]] = []
-                dicc[c["album"]].append(c)
+            if c["album_name"] not in dicc:
+                dicc[c["album_name"]] = []
+                dicc[c["album_name"]].append(c)
             else:
-                dicc[c["album"]].append(c)
+                dicc[c["album_name"]].append(c)
                 
     return dicc
                 

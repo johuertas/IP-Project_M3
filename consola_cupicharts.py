@@ -109,7 +109,19 @@ def ejecutar_buscar_canciones_por_artista_popularidad(cupicharts: dict) -> None:
             - [Z] es la popularidad máxima ingresada por el usuario.
     """
     # TODO 10: Implemente la función tal y como se describe en la documentación.
-    pass
+    
+    X = input("Nombre del artista: ")
+    Y = int(input("Popularidad mínima: "))
+    Z = int(input("Popularidad máxima: "))
+    
+    respuesta = c.buscar_canciones_por_artista_popularidad(cupicharts, X, Y, Z)
+    
+    if respuesta == []:
+        print("No se encontraron canciones del artista [X] con popularidad entre [Y] y [Z].")
+    else:
+        for i in respuesta:
+            print("Las canciones del artista", X, "Con popularidad entre", Y, "y", Z)
+            mostrar_canciones(i)
         
 
 # Función 3:
