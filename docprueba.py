@@ -16,7 +16,16 @@ def cargar_cupicharts(ruta_archivo: str) -> dict:
         
         diccio = {}
         for i in range(len(encabezado)):
-            diccio[encabezado[i]] = cont[i]
+            
+            if cont[i].isnumeric() == True:
+                diccio[encabezado[i]] = int(cont[i])
+            elif cont[i] == 'True' or cont[i] == 'False':
+                diccio[encabezado[i]] = bool(cont[i])
+            elif cont[i].replace(".", "").isnumeric() == True and "." in cont[i]:
+                diccio[encabezado[i]] = float(cont[i])
+            else:
+                diccio[encabezado[i]] = cont[i]
+            
         
         if diccio['genre'] not in dicc:
             dicc[diccio['genre']] = []
@@ -91,10 +100,10 @@ def buscar_posicion_mas_frecuente(cupicharts: dict) -> dict:
     
     for genero in cupicharts:
         for c in cupicharts[genero]:
-            if int(c["peak_pos"]) == 1:
+            if c["peak_pos"] == 1:
                 p_can += 1
-            if int(c["peak_pos"]) > max_pos:
-                max_pos = int(c["peak_pos"])
+            if c["peak_pos"] > max_pos:
+                max_pos = c["peak_pos"]
     
     dicci = {"posicion":1,
              "cantidad":p_can}
@@ -104,7 +113,7 @@ def buscar_posicion_mas_frecuente(cupicharts: dict) -> dict:
         temp = 0
         for genero in cupicharts:
             for c in cupicharts[genero]:
-                if int(c["peak_pos"]) == pos:
+                if c["peak_pos"] == pos:
                     temp += 1
         if temp > dicci["cantidad"]:
             dicci["posicion"] = pos
@@ -149,10 +158,10 @@ def recomendar_cancion(
     
     for genero in cupicharts:
         for c in cupicharts[genero]:
-            if int(c["peak_pos"]) == pos_fre and \
+            if c["peak_pos"] == pos_fre and \
                c["genre"] == genero_buscado and \
-               int(c["listeners"]) >= listeners_min and \
-               (float(c["duration_s"]) >= duracion_min and float(c["duration_s"]) <= duracion_max) and \
+               c["listeners"] >= listeners_min and \
+               (c["duration_s"] >= duracion_min and c["duration_s"] <= duracion_max) and \
                (c["release_date"] >= fecha_lanzamiento_min and c["release_date"] <= fecha_lanzamiento_max):
                    return c
                
