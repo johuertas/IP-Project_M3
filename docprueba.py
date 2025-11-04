@@ -128,12 +128,41 @@ def crear_url_canciones(cupicharts: dict) -> None:
             c["url"] = link
             
     return cupicharts
-            
+
+
+def recomendar_cancion(
+        cupicharts: dict,
+        genero_buscado: str,
+        listeners_min: int,
+        duracion_min: float,
+        duracion_max: float,
+        fecha_lanzamiento_min: str,
+        fecha_lanzamiento_max: str
+    ) -> dict:
+
+    if cupicharts == {}:
+        return {}
     
+    pos_fre = buscar_posicion_mas_frecuente(cargar_cupicharts(archi))
+    pos_fre = pos_fre["posicion"]
+    
+    
+    for genero in cupicharts:
+        for c in cupicharts[genero]:
+            if int(c["peak_pos"]) == pos_fre and \
+               c["genre"] == genero_buscado and \
+               int(c["listeners"]) >= listeners_min and \
+               (float(c["duration_s"]) >= duracion_min and float(c["duration_s"]) <= duracion_max) and \
+               (c["release_date"] >= fecha_lanzamiento_min and c["release_date"] <= fecha_lanzamiento_max):
+                   return c
+               
+    return {}
 
-
-#def prueba(cupicharts:dict):
-#   print()
+    
+    
+"""def prueba(cupicharts:dict):
+    for genero in cupicharts:
+        for c in cupicharts[genero]:"""
     
 #print(cargar_cupicharts(archi))
 #print(bus_popu(cargar_cupicharts(archi), "Kendrick Lamar", 94, 98))
@@ -141,5 +170,6 @@ def crear_url_canciones(cupicharts: dict) -> None:
 #print(buscar_cancion_mas_escuchada(cargar_cupicharts(archi)))
 #print(obtener_apariciones_posicion(cargar_cupicharts(archi), 1))
 #print(buscar_posicion_mas_frecuente(cargar_cupicharts(archi)))
-print(crear_url_canciones(cargar_cupicharts(archi)))
+#print(crear_url_canciones(cargar_cupicharts(archi)))
+print(recomendar_cancion(cargar_cupicharts(archi), "country", 100, 110.0, 225.0, "2020-01-01", "2025-09-11"))
 #print(prueba(cargar_cupicharts(archi)))
