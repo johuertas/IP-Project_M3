@@ -359,11 +359,28 @@ def recomendar_cancion(
                   Si no hay coincidencias o el diccionario está vacío, retorna un diccionario vacío.
     """
     # TODO 8: Implemente la función tal y como se describe en la documentación.
-    pass
+    
+    if cupicharts == {}:
+        return {}
+    
+    pos_fre = buscar_posicion_mas_frecuente(cupicharts)
+    pos_fre = pos_fre["posicion"]
+    
+    
+    for genero in cupicharts:
+        for c in cupicharts[genero]:
+            if int(c["peak_pos"]) == pos_fre and \
+               c["genre"] == genero_buscado and \
+               int(c["listeners"]) >= listeners_min and \
+               (float(c["duration_s"]) >= duracion_min and float(c["duration_s"]) <= duracion_max) and \
+               (c["release_date"] >= fecha_lanzamiento_min and c["release_date"] <= fecha_lanzamiento_max):
+                   return c
+               
+    return {}
 
 
 # Función 9:
-def relacionar_album_con_canciones(canciones: dict) -> dict:
+def relacionar_album_con_canciones(cupicharts: dict) -> dict:
     """
     Agrupa las canciones por nombre de álbum, creando un diccionario donde las llaves son los nombres de los álbumes
     y los valores son listas con los títulos de las canciones que pertenecen a cada álbum.
@@ -380,4 +397,16 @@ def relacionar_album_con_canciones(canciones: dict) -> dict:
             - Los valores (list) son listas con los nombres de las canciones del álbum.
     """
     # TODO 9: Implemente la función tal y como se describe en la documentación.
-    pass
+    
+    dicc = {}
+    
+    for genero in cupicharts:
+        for c in cupicharts[genero]:
+            if c["album"] not in dicc:
+                dicc[c["album"]] = []
+                dicc[c["album"]].append(c)
+            else:
+                dicc[c["album"]].append(c)
+                
+    return dicc
+                

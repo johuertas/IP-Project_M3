@@ -158,6 +158,20 @@ def recomendar_cancion(
                
     return {}
 
+def relacionar_album_con_canciones(cupicharts: dict) -> dict:
+
+    dicc = {}
+    
+    for genero in cupicharts:
+        for c in cupicharts[genero]:
+            if c["album_name"] not in dicc:
+                dicc[c["album_name"]] = []
+                dicc[c["album_name"]].append(c)
+            else:
+                dicc[c["album_name"]].append(c)
+                
+    return dicc
+
     
     
 """def prueba(cupicharts:dict):
@@ -171,5 +185,6 @@ def recomendar_cancion(
 #print(obtener_apariciones_posicion(cargar_cupicharts(archi), 1))
 #print(buscar_posicion_mas_frecuente(cargar_cupicharts(archi)))
 #print(crear_url_canciones(cargar_cupicharts(archi)))
-print(recomendar_cancion(cargar_cupicharts(archi), "country", 100, 110.0, 225.0, "2020-01-01", "2025-09-11"))
+#print(recomendar_cancion(cargar_cupicharts(archi), "country", 100, 110.0, 225.0, "2020-01-01", "2025-09-11"))
+print(relacionar_album_con_canciones(cargar_cupicharts(archi)))
 #print(prueba(cargar_cupicharts(archi)))
