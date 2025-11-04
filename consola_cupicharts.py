@@ -110,18 +110,17 @@ def ejecutar_buscar_canciones_por_artista_popularidad(cupicharts: dict) -> None:
     """
     # TODO 10: Implemente la función tal y como se describe en la documentación.
     
-    X = input("Nombre del artista: ")
+    X = str(input("Nombre del artista: "))
     Y = int(input("Popularidad mínima: "))
     Z = int(input("Popularidad máxima: "))
     
     respuesta = c.buscar_canciones_por_artista_popularidad(cupicharts, X, Y, Z)
     
     if respuesta == []:
-        print("No se encontraron canciones del artista [X] con popularidad entre [Y] y [Z].")
+        print("No se encontraron canciones del artista", X, "con popularidad entre", str(Y), "y", str(Z) + ".")
     else:
-        for i in respuesta:
-            print("Las canciones del artista", X, "Con popularidad entre", Y, "y", Z)
-            mostrar_canciones(i)
+        print("Las canciones del artista", X, "Con popularidad entre", Y, "y", Z)
+        mostrar_canciones(respuesta)
         
 
 # Función 3:
@@ -151,7 +150,20 @@ def ejecutar_buscar_canciones_por_genero_anio_explicitud(cupicharts: dict) -> No
             - [Z] es la opción de explícito ingresada por el usuario (True o False).
     """
     # TODO 11: Implemente la función tal y como se describe en la documentación.
-    pass
+    
+    X = input("Genero musical: ")
+    Y = input("Año de lanzamiento: ")
+    Z = bool(input("Explicito? (True or False): "))
+    
+    respuesta = c.buscar_canciones_por_genero_anio_explicitud(cupicharts, X, Y, Z)
+    
+    if respuesta == []:
+        print("No se encontraron canciones del genero musical", X, "lanzadas en el año", Y, "con la opción de explícito", Z + ".")
+    else:
+        print("Las canciones del género musical", X, "lanzadas en el año", Y, "con la opción de explícito", str(Z) + ".")
+        mostrar_canciones(respuesta)
+    
+    
 
 # Función 4:
 def ejecutar_buscar_cancion_mas_escuchada(cupicharts: dict) -> None:
@@ -171,7 +183,14 @@ def ejecutar_buscar_cancion_mas_escuchada(cupicharts: dict) -> None:
             Luego, se usa la función auxiliar mostrar_cancion() para mostrar la información de la canción encontrada.
     """
     # TODO 12: Implemente la función tal y como se describe en la documentación.
-    pass
+    
+    respuesta = c.buscar_cancion_mas_escuchada(cupicharts)
+    
+    if respuesta == {}:
+        print("No se encontraron canciones en Cupicharts.")
+    else:
+        print("La canción más escuchada es: ")
+        mostrar_cancion(respuesta)
 
 
 # Función 5:
@@ -199,7 +218,14 @@ def ejecutar_obtener_apariciones_posicion(cupicharts: dict) -> None:
             - [Y] es el número total de canciones que alcanzaron esa posición.
     """
     # TODO 13: Implemente la función tal y como se describe en la documentación.
-    pass
+    
+    X = int(input("Posición del chart: "))
+    Y = c.obtener_apariciones_posicion(cupicharts, X)
+    
+    if X == None or Y == 0:
+        print("No se encontraron canciones para la posición #" + str(X))
+    else:
+        print("La posición #" + str(X), "fue alcanzada por", str(Y), "canciones.")
         
 
 # Función 6:
@@ -225,7 +251,16 @@ def ejecutar_buscar_posicion_mas_frecuente(cupicharts: dict) -> None:
             - [Y] es el número total de canciones que alcanzaron esa posición.
     """
     # TODO 14: Implemente la función tal y como se describe en la documentación.
-    pass
+    
+    resultado = c.buscar_posicion_mas_frecuente(cupicharts)
+    
+    X = resultado["posicion"]
+    Y = resultado["cantidad"]
+    
+    if resultado == {}:
+        print("No se encontraron posiciones en Cupicharts.")
+    else:
+        print("La posición más frecuente es #" + str(X), "y fue alcanzada por", str(Y), "canciones.")
 
 
 # Función 7:

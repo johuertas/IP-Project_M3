@@ -83,7 +83,16 @@ def cargar_cupicharts(ruta_archivo: str) -> dict:
         
         diccio = {}
         for i in range(len(encabezado)):
-            diccio[encabezado[i]] = cont[i]
+            
+            if cont[i].isnumeric() == True:
+                diccio[encabezado[i]] = int(cont[i])
+            elif cont[i] == 'True' or cont[i] == 'False':
+                diccio[encabezado[i]] = bool(cont[i])
+            elif cont[i].replace(".", "").isnumeric() == True and "." in cont[i]:
+                diccio[encabezado[i]] = float(cont[i])
+            else:
+                diccio[encabezado[i]] = cont[i]
+            
         
         if diccio['genre'] not in dicc:
             dicc[diccio['genre']] = []
@@ -126,7 +135,7 @@ def buscar_canciones_por_artista_popularidad(cupicharts: dict, artista_buscado: 
     for genero in cupicharts:
         c = 0
         while c < len(cupicharts[genero]):
-            if cupicharts[genero][c]["performer"] == artista_buscado and int(cupicharts[genero][c]["popularity"]) >= popularidad_min and int(cupicharts[genero][c]["popularity"]) <= popularidad_max:
+            if cupicharts[genero][c]["performer"] == artista_buscado and cupicharts[genero][c]["popularity"] >= popularidad_min and cupicharts[genero][c]["popularity"] <= popularidad_max:
                 lista.append(cupicharts[genero][c])
             c += 1
                 
@@ -154,17 +163,15 @@ def buscar_canciones_por_genero_anio_explicitud(cupicharts: dict, genero_buscado
               Si no hay coincidencias, se retorna una lista vacía.
     """
     # TODO 3: Implemente la función tal y como se describe en la documentación.
-
     
     lista = []
     
     g_bus = cupicharts[genero_buscado]
     for i in g_bus:
-        if i["release_date"] == anio_lanzamiento_buscado and i["explicit"] == criterio_explicito_buscado:
+        if anio_lanzamiento_buscado in i["release_date"] and i["explicit"] == criterio_explicito_buscado:
             lista.append(i)
             
     return lista
-
 
 # Función 4:
 def buscar_cancion_mas_escuchada(cupicharts: dict) -> dict:
@@ -215,7 +222,7 @@ def obtener_apariciones_posicion(cupicharts: dict, posicion_buscada: int) -> int
     
     for genero in cupicharts:
         for c in cupicharts[genero]:
-            if int(c["peak_pos"]) == posicion_buscada:
+            if c["peak_pos"] == posicion_buscada:
                 cuenta_p += 1
         
     return cuenta_p
@@ -251,10 +258,10 @@ def buscar_posicion_mas_frecuente(cupicharts: dict) -> dict:
     
     for genero in cupicharts:
         for c in cupicharts[genero]:
-            if int(c["peak_pos"]) == 1:
+            if c["peak_pos"] == 1:
                 p_can += 1
-            if int(c["peak_pos"]) > max_pos:
-                max_pos = int(c["peak_pos"])
+            if c["peak_pos"] > max_pos:
+                max_pos = c["peak_pos"]
     
     dicci = {"posicion":1,
              "cantidad":p_can}
@@ -264,7 +271,7 @@ def buscar_posicion_mas_frecuente(cupicharts: dict) -> dict:
         temp = 0
         for genero in cupicharts:
             for c in cupicharts[genero]:
-                if int(c["peak_pos"]) == pos:
+                if c["peak_pos"] == pos:
                     temp += 1
         if temp > dicci["cantidad"]:
             dicci["posicion"] = pos
@@ -369,11 +376,11 @@ def recomendar_cancion(
     
     for genero in cupicharts:
         for c in cupicharts[genero]:
-            if int(c["peak_pos"]) == pos_fre and \
+            if c["peak_pos"] == pos_fre and \
                c["genre"] == genero_buscado and \
-               int(c["listeners"]) >= listeners_min and \
-               (float(c["duration_s"]) >= duracion_min and float(c["duration_s"]) <= duracion_max) and \
-               (c["release_date"] >= fecha_lanzamiento_min and c["release_date"] <= fecha_lanzamiento_max):
+               c["listeners"] >= listeners_min and \
+               c["duration_s"] >= duracion_min and c["duration_s"] <= duracion_max and \
+               c["release_date"] >= fecha_lanzamiento_min and c["release_date"] <= fecha_lanzamiento_max:
                    return c
                
     return {}

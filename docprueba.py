@@ -58,7 +58,7 @@ def buscar_canciones_por_genero_anio_explicitud(cupicharts: dict, genero_buscado
     
     g_bus = cupicharts[genero_buscado]
     for i in g_bus:
-        if i["release_date"] == anio_lanzamiento_buscado and i["explicit"] == criterio_explicito_buscado:
+        if (anio_lanzamiento_buscado in i["release_date"]) and i["explicit"] == criterio_explicito_buscado:
             lista.append(i)
             
     return lista
@@ -189,7 +189,7 @@ def relacionar_album_con_canciones(cupicharts: dict) -> dict:
     
 #print(cargar_cupicharts(archi))
 #print(bus_popu(cargar_cupicharts(archi), "Kendrick Lamar", 94, 98))
-#print(buscar_canciones_por_genero_anio_explicitud(cargar_cupicharts(archi), "country", "2025-05-23", 'False'))
+print(buscar_canciones_por_genero_anio_explicitud(cargar_cupicharts(archi), "rap", "2025", True))
 #print(buscar_cancion_mas_escuchada(cargar_cupicharts(archi)))
 #print(obtener_apariciones_posicion(cargar_cupicharts(archi), 1))
 #print(buscar_posicion_mas_frecuente(cargar_cupicharts(archi)))
