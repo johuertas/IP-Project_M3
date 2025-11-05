@@ -175,9 +175,9 @@ def relacionar_album_con_canciones(cupicharts: dict) -> dict:
         for c in cupicharts[genero]:
             if c["album_name"] not in dicc:
                 dicc[c["album_name"]] = []
-                dicc[c["album_name"]].append(c)
+                dicc[c["album_name"]].append(c["title"])
             else:
-                dicc[c["album_name"]].append(c)
+                dicc[c["album_name"]].append(c["title"])
                 
     return dicc
 
@@ -189,11 +189,11 @@ def relacionar_album_con_canciones(cupicharts: dict) -> dict:
     
 #print(cargar_cupicharts(archi))
 #print(bus_popu(cargar_cupicharts(archi), "Kendrick Lamar", 94, 98))
-print(buscar_canciones_por_genero_anio_explicitud(cargar_cupicharts(archi), "rap", "2025", True))
+#print(buscar_canciones_por_genero_anio_explicitud(cargar_cupicharts(archi), "rap", "2025", True))
 #print(buscar_cancion_mas_escuchada(cargar_cupicharts(archi)))
 #print(obtener_apariciones_posicion(cargar_cupicharts(archi), 1))
 #print(buscar_posicion_mas_frecuente(cargar_cupicharts(archi)))
 #print(crear_url_canciones(cargar_cupicharts(archi)))
 #print(recomendar_cancion(cargar_cupicharts(archi), "country", 100, 110.0, 225.0, "2020-01-01", "2025-09-11"))
-#print(relacionar_album_con_canciones(cargar_cupicharts(archi)))
+print(relacionar_album_con_canciones(cargar_cupicharts(archi)))
 #print(prueba(cargar_cupicharts(archi)))

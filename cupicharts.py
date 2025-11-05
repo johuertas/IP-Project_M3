@@ -317,7 +317,7 @@ def crear_url_canciones(cupicharts: dict) -> None:
     for genero in cupicharts:
         for c in cupicharts[genero]:
             gen = genero.replace(" ", "")
-            can_art = c["title"] + "-" + c["performer"] 
+            can_art = str(c["title"]).lower().replace(" ", "") + "-" + str(c["performer"]).lower().replace(" ", "")
             if len(can_art) > 30:
                 can_art = can_art[:30]
             f_chart = c["chart_week"].replace("-", "")
@@ -411,9 +411,9 @@ def relacionar_album_con_canciones(cupicharts: dict) -> dict:
         for c in cupicharts[genero]:
             if c["album_name"] not in dicc:
                 dicc[c["album_name"]] = []
-                dicc[c["album_name"]].append(c)
+                dicc[c["album_name"]].append(c["title"])
             else:
-                dicc[c["album_name"]].append(c)
+                dicc[c["album_name"]].append(c["title"])
                 
     return dicc
                 

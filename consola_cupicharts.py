@@ -284,6 +284,7 @@ def ejecutar_crear_url_canciones(cupicharts: dict) -> None:
             - [C] es la fecha en que alcanzó el chart.
             - [D] es la URL generada para la canción.
     """
+    
     if "pop" in cupicharts and cupicharts["pop"] != []:
         c.crear_url_canciones(cupicharts)
         primera_cancion = cupicharts["pop"][0]
@@ -315,7 +316,21 @@ def ejecutar_recomendar_cancion(cupicharts: dict) -> None:
             Luego, se usa la función auxiliar mostrar_cancion() para mostrar la información de la canción encontrada. 
     """
     # TODO 15: Implemente la función tal y como se describe en la documentación.
-    pass
+    
+    gen = input("Género musical a buscar: ")
+    oye = int(input("Número de oyentes mínimo: "))
+    d_min = float(input("Duración mínima de la canción en segundos: "))
+    d_max = float(input("Duración máxima de la canción en segundos: "))
+    f_min = input("Fecha de lanzamiento mínima (formato YYYY-MM-DD): ")
+    f_max = input("Fecha de lanzamiento máxima: (formato YYYY-MM-DD): ")
+    
+    resultado = c.recomendar_cancion(cupicharts, gen, oye, d_min, d_max, f_min, f_max)
+    
+    if resultado == {}:
+        print("No se encontró ninguna canción que cumpla con los criterios.")
+    else:
+        print("La canción recomendada es: ")
+        mostrar_cancion(resultado)
 
 
 # Función 9:
