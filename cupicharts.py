@@ -102,6 +102,8 @@ def cargar_cupicharts(ruta_archivo: str) -> dict:
             dicc[diccio['genre']].append(diccio)
             
         linea = archivo.readline().strip()
+        
+    archivo.close()
     
     return dicc
     
